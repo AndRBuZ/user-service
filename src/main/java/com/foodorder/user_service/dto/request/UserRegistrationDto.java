@@ -11,7 +11,9 @@ public class UserRegistrationDto {
     @NotBlank
     private String name;
 
-    @NotBlank @Email @Column(unique = true)
+    @NotBlank
+    @Email(message = "Please provide a valid email address", regexp = ".+@.+\\..+")
+    @Column(unique = true)
     private String email;
 
     @Size(min = 6)
