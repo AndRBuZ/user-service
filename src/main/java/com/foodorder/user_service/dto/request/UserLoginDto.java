@@ -1,4 +1,4 @@
 package com.foodorder.user_service.dto.request;
 
-public class UserRegistrationDto {
+public class UserLoginDto {
 }
