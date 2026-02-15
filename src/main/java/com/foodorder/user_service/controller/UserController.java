@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 
-
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -23,5 +22,11 @@ public class UserController {
     public ResponseEntity<UserResponseDto> registrationUser(@Valid @RequestBody UserRegistrationDto dto) {
         UserResponseDto response = userService.createUser(dto);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<UserResponseDto> loginUser(@PathVariable String email) {
+        UserResponseDto response = userService.getUserByEmail(email);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
