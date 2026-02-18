@@ -4,11 +4,10 @@ import com.foodorder.user_service.dto.request.UserRegistrationDto;
 import com.foodorder.user_service.dto.response.UserCredentialsDto;
 import com.foodorder.user_service.dto.response.UserPublicDto;
 import com.foodorder.user_service.entity.User;
+import com.foodorder.user_service.exception.UserNotFoundException;
 import com.foodorder.user_service.mapper.UserMapper;
 import com.foodorder.user_service.repository.UserRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -28,13 +27,13 @@ public class UserService {
 
     public UserPublicDto getUserByEmail(String email) {
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(UserNotFoundException::new);
         return userMapper.toPublic(user);
     }
 
     public UserCredentialsDto getUserCredentialsByEmail (String email) {
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(UserNotFoundException::new);
         return userMapper.toCredentials(user);
     }
 }
