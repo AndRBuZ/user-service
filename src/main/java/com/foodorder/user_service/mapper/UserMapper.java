@@ -15,8 +15,8 @@ public class UserMapper {
     public UserCredentialsDto toCredentials(User user) {
         return new UserCredentialsDto(
                 user.getId(),
-                user.getEmail(),
                 user.getName(),
+                user.getEmail(),
                 user.getPassword()
         );
     }
