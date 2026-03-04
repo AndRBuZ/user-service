@@ -1,14 +1,14 @@
 package com.foodorder.user_service.controller;
 
 import com.foodorder.user_service.dto.request.UserRegistrationDto;
-import com.foodorder.user_service.dto.response.UserResponseDto;
+import com.foodorder.user_service.dto.response.UserCredentialsDto;
+import com.foodorder.user_service.dto.response.UserPublicDto;
 import com.foodorder.user_service.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
-
 
 @RestController
 @RequestMapping("/users")
@@ -20,8 +20,14 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserResponseDto> registerUser(@Valid @RequestBody UserRegistrationDto dto) {
-        UserResponseDto response = userService.createUser(dto);
+    public ResponseEntity<UserPublicDto> registrationUser(@Valid @RequestBody UserRegistrationDto dto) {
+        UserPublicDto response = userService.createUser(dto);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<UserCredentialsDto> loginUser(@PathVariable String email) {
+        UserCredentialsDto response = userService.getUserCredentialsByEmail(email);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
